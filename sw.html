@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOPWATCH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            background-image: url("photo1.jpg");
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            padding: 1rem;
+            max-width: 550px;
+            text-align: center;
+            border-radius: 150vh;
+            background-color: rgba(15, 212, 238, 0.6);
+        }
+
+        .time {
+            padding: 1rem 0;
+            font-size: 2rem;
+            color: #f8f8f8;
+        }
+
+        h1, p {
+            color: #f8f8f8;
+        }
+
+        button {
+            padding: 0.4rem 1rem;
+            margin: 0 0.2rem;
+            border-radius: 10px;
+            border: 1px solid #f8f8f8;
+            background-color: transparent;
+            color: #f5eded;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>STOPWATCH</h1>
+        <p class="time">
+            <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="tens">00</span>
+        </p>
+        <button id="start">START</button>
+        <button id="stop">STOP</button>
+        <button id="reset">RESET</button>
+    </div>
+
+    <script>
+        let minutes = 0, seconds = 0, tens = 0;
+        let appendMinutes = document.getElementById("minutes");
+        let appendSeconds = document.getElementById("seconds");
+        let appendTens = document.getElementById("tens");
+        let startButton = document.getElementById("start");
+        let stopButton = document.getElementById("stop");
+        let resetButton = document.getElementById("reset");
+        let interval;
+
+        function startTimer() {
+            tens++;
+            if (tens > 99) {
+                seconds++;
+                tens = 0;
+            }
+            if (seconds > 59) {
+                minutes++;
+                seconds = 0;
+            }
+            appendTens.innerHTML = tens < 10 ? "0" + tens : tens;
+            appendSeconds.innerHTML = seconds < 10 ? "0" + seconds : seconds;
+            appendMinutes.innerHTML = minutes < 10 ? "0" + minutes : minutes;
+        }
+
+        startButton.onclick = function () {
+            clearInterval(interval);
+            interval = setInterval(startTimer, 10);
+        };
+
+        stopButton.onclick = function () {
+            clearInterval(interval);
+        };
+
+        resetButton.onclick = function () {
+            clearInterval(interval);
+            minutes = 0;
+            seconds = 0;
+            tens = 0;
+            appendMinutes.innerHTML = "00";
+            appendSeconds.innerHTML = "00";
+            appendTens.innerHTML = "00";
+        };
+    </script>
+</body>
+</html>
